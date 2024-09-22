@@ -1,5 +1,5 @@
 {
-  "name": "@nestjs/schedule",
+  "name": "@meodemsao/schedule",
   "version": "4.1.1",
   "description": "Nest - modern, fast, powerful node.js web framework (@schedule)",
   "author": "Kamil Mysliwiec",
@@ -18,7 +18,8 @@
     "release": "release-it"
   },
   "dependencies": {
-    "cron": "3.1.7",
+    "cron": "^3.1.7",
+    "croner": "^8.1.1",
     "uuid": "10.0.0"
   },
   "devDependencies": {
@@ -65,6 +66,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nestjs/schedule"
-  }
+    "url": "git+https://github.com/nestjs/schedule.git"
+  },
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "types": "./index.d.ts",
+  "bugs": {
+    "url": "https://github.com/nestjs/schedule/issues"
+  },
+  "homepage": "https://github.com/nestjs/schedule#readme"
 }

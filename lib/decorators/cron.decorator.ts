@@ -1,5 +1,4 @@
 import { applyDecorators, SetMetadata } from '@nestjs/common';
-import { CronJobParams } from 'cron';
 import { SchedulerType } from '../enums/scheduler-type.enum';
 import {
   SCHEDULE_CRON_OPTIONS,
@@ -35,6 +34,36 @@ export type CronOptions = {
    * @default false
    */
   disabled?: boolean;
+
+  /**
+   * Will skip executions until the previous execution is finished, in case of long running jobs.
+   * @default false
+   */
+  preventOverrun?: boolean;
+
+  /**
+   * Specify a minimum interval between executions, in addition to your pattern. Specified in milliseconds.
+   * @default 0
+   */
+  interval?: number;
+
+  /**
+   * Allows passing an arbitrary object to the triggered function, will be passed as the second argument.
+   * @default undefined
+   */
+  context?: unknown;
+
+  /**
+   * Set maximum number of executions before the job is canceled.
+   * @default undefined
+   */
+  maxRuns?: number;
+
+  /**
+   * Change how day-of-month and day-of-week are combined. Legacy Mode (default, true) = OR. Alternative mode (false) = AND
+   * @default true
+   */
+  legacyMode?: boolean;
 } & // make timeZone & utcOffset mutually exclusive
 (| {
       timeZone?: string;
@@ -52,7 +81,7 @@ export type CronOptions = {
  * @param options Job execution options.
  */
 export function Cron(
-  cronTime: CronJobParams['cronTime'],
+  cronTime: string | Date | any,
   options: CronOptions = {},
 ): MethodDecorator {
   const name = options?.name;
